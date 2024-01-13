@@ -10,4 +10,7 @@ public class App
     {
         System.out.println( "Welcome to FitApp!" );
     }
+    /**
+     * some code ...
+     */
 }
