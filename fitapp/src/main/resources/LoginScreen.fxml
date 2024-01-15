@@ -45,5 +45,10 @@
             <Image url="@logo.jpeg" />
          </image>
       </ImageView>
+      <Label fx:id="incorrectLabel" layoutX="267.0" layoutY="554.0" prefHeight="16.0" prefWidth="284.0" text="Incorrect username or password" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
