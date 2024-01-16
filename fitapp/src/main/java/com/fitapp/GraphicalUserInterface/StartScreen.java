@@ -1,5 +1,6 @@
 package com.fitapp.GraphicalUserInterface;
 
+import com.fitapp.DataBase.DbHandler;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sun.text.resources.ext.JavaTimeSupplementary_sq;
+
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class StartScreen extends Application {
 
@@ -30,6 +34,11 @@ public class StartScreen extends Application {
     private javafx.scene.control.TextField usernameField;
     @FXML
     private javafx.scene.control.TextField passwordField;
+    private DbHandler dbHandler;
+
+    public StartScreen() throws SQLException {
+        this.dbHandler = new DbHandler();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,7 +69,7 @@ public class StartScreen extends Application {
     }
 
     @FXML
-    private void handleLoginButtonAction() throws IOException {
+    private void handleLoginButtonAction() throws IOException, SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -81,21 +90,33 @@ public class StartScreen extends Application {
             usernameField.clear();
             passwordField.clear();
         }
-        else if (username.equals("admin") && password.equals("admin")) {
-            System.out.println("Login successful");
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
-            Scene scene = new Scene(root, 817, 812);
-            Stage primaryStage = new Stage();
-            primaryStage.setResizable(false);
-            primaryStage.setTitle("FitApp");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } else {
-            incorrectLabel.setVisible(true);
-            usernameField.clear();
-            passwordField.clear();
+        else
+        {
+            String result = dbHandler.handleLogin(username, password);
+            System.out.println(result);
+
+            if(result.equals("f"))
+            {
+                incorrectLabel.setText("Incorrect password");
+                incorrectLabel.setVisible(true);
+            }
+            else if(result.equals("Error"))
+            {
+                incorrectLabel.setText("Failed to login");
+                incorrectLabel.setVisible(true);
+            }
+            else
+            {
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                stage.close();
+                Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
+                Scene scene = new Scene(root, 817, 812);
+                Stage primaryStage = new Stage();
+                primaryStage.setResizable(false);
+                primaryStage.setTitle("FitApp");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            }
         }
     }
 
@@ -113,7 +134,7 @@ public class StartScreen extends Application {
     }
 
     @FXML
-    private void handleCreateAccountButtonAction() throws IOException {
+    private void handleCreateAccountButtonAction() throws IOException, SQLException {
         /**
          * database is responsible for provided data validation
          */
@@ -145,20 +166,37 @@ public class StartScreen extends Application {
                  * TODO: send data to database and database will validate it
                  * if its good then create the account and open the main screen
                  */
-                Stage stage = (Stage) SUusernameField.getScene().getWindow();
-                stage.close();
-                Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
-                Scene scene = new Scene(root, 817, 812);
-                Stage primaryStage = new Stage();
-                primaryStage.setResizable(false);
-                primaryStage.setTitle("FitApp");
-                primaryStage.setScene(scene);
-                primaryStage.show();
+                boolean isCreated = false;
+                String result = dbHandler.handleCreateUser(username, password, goal, weight);
+                System.out.println(result);
+
+                if(result.equals("Error"))
+                {
+                    SUincorrectLabel.setText("Failed to create account");
+                }
+                else
+                {
+                    isCreated = true;
+                }
+
+                if(isCreated){
+
+                    Stage stage = (Stage) SUusernameField.getScene().getWindow();
+                    stage.close();
+                    Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
+                    Scene scene = new Scene(root, 817, 812);
+                    Stage primaryStage = new Stage();
+                    primaryStage.setResizable(false);
+                    primaryStage.setTitle("FitApp");
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                }
             }
 
         }
 
     }
+
 }
 
 

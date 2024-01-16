@@ -31,6 +31,37 @@ public class DbHandler {
             System.out.println(id + " " + user_id + " " + date + " " + protein + " " + fat + " " + carbs + " " + kcal);
         }
     }
+
+    public String handleCreateUser(String username, String password, String goal, String weight) throws SQLException {
+
+        try
+        {
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(String.format("SELECT add_to_logs2('%s', '%s', '%s', '%s');", username, password, goal, weight));
+        result.next();
+        return result.getString(1);
+        }
+        catch (SQLException e)
+        {
+            return "Error";
+        }
+    }
+
+    public String handleLogin(String username, String password) throws SQLException {
+
+        try
+        {
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(String.format("SELECT check_password('%s', '%s');", username, password));
+        result.next();
+        return result.getString(1);
+        }
+        catch (SQLException e)
+        {
+            return "Error";
+        }
+    }
+
     public void closeConnection() {
         databaseConnector.closeConnection(this.connection);
     }
