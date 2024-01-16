@@ -70,6 +70,10 @@ public class StartScreen extends Application {
          */
         System.out.println(username);
         System.out.println(password);
+        /**
+         * TODO: send data to database and database will validate it
+         * if its good then open the main screen
+         */
 
         if(username.isEmpty() || password.isEmpty()){
             incorrectLabel.setText("Please enter username and password");
@@ -122,16 +126,36 @@ public class StartScreen extends Application {
             SUweightField.clear();
             SUincorrectLabel.setText("Please enter valid data");
             SUincorrectLabel.setVisible(true);
+
         }else {
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
-            Scene scene = new Scene(root, 817, 812);
-            Stage primaryStage = new Stage();
-            primaryStage.setResizable(false);
-            primaryStage.setTitle("FitApp");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            String username = SUusernameField.getText();
+            String password = SUpasswordField.getText();
+            String confirmPassword = SUconfirmPasswordField.getText();
+            String goal = SUgoalField.getText();
+            String weight = SUweightField.getText();
+
+            if(!password.equals(confirmPassword)){
+                SUincorrectLabel.setText("Passwords do not match");
+                SUincorrectLabel.setVisible(true);
+                SUpasswordField.clear();
+                SUconfirmPasswordField.clear();
+            }
+            else {
+                /**
+                 * TODO: send data to database and database will validate it
+                 * if its good then create the account and open the main screen
+                 */
+                Stage stage = (Stage) SUusernameField.getScene().getWindow();
+                stage.close();
+                Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
+                Scene scene = new Scene(root, 817, 812);
+                Stage primaryStage = new Stage();
+                primaryStage.setResizable(false);
+                primaryStage.setTitle("FitApp");
+                primaryStage.setScene(scene);
+                primaryStage.show();
+            }
+
         }
 
     }
