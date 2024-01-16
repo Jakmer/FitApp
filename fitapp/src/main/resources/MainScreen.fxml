@@ -10,24 +10,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane stylesheets="styles.css" prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="103.0" fitWidth="392.0" layoutX="213.0" layoutY="14.0">
          <image>
             <Image url="@appName.jpeg" />
          </image>
       </ImageView>
-      <Button layoutX="82.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#mouseclick" prefHeight="88.0" prefWidth="253.0" style="-fx-background-color: ff7d03; -fx-background-radius: 20;" text="Add meal" textFill="#053448">
+      <Button layoutX="82.0" layoutY="190.0" mnemonicParsing="false"  prefHeight="88.0" prefWidth="253.0" style="-fx-background-color: ff7d03; -fx-background-radius: 20;" text="Add meal" textFill="#053448">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="80.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#mouseclick" prefHeight="88.0" prefWidth="253.0" style="-fx-background-color: ff7d03; -fx-background-radius: 20;" text="Add water" textFill="#053448">
+      <Button layoutX="80.0" layoutY="296.0" mnemonicParsing="false"  prefHeight="88.0" prefWidth="253.0" style="-fx-background-color: ff7d03; -fx-background-radius: 20;" text="Add water" textFill="#053448">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Button>
-      <Button layoutX="80.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#mouseclick" prefHeight="88.0" prefWidth="253.0" style="-fx-background-radius: 20; -fx-background-color: ff7d03;" text="Add activity" textFill="#053448">
+      <Button layoutX="80.0" layoutY="406.0" mnemonicParsing="false"  prefHeight="88.0" prefWidth="253.0" style="-fx-background-radius: 20; -fx-background-color: ff7d03;" text="Add activity" textFill="#053448">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -93,7 +93,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <DatePicker layoutX="82.0" layoutY="741.0" onKeyPressed="#enter" prefHeight="24.0" prefWidth="253.0" promptText="Select date" />
+      <DatePicker layoutX="82.0" layoutY="741.0"  prefHeight="24.0" prefWidth="253.0" promptText="Select date" />
       <ProgressBar layoutX="80.0" layoutY="605.0" prefHeight="45.0" prefWidth="253.0" progress="0.36" style="-fx-background-color: #e4082;" />
       <Label alignment="CENTER" layoutX="80.0" layoutY="650.0" prefHeight="14.0" prefWidth="51.0" style="-fx-background-radius: 20;" text="very bad" textFill="#053448">
          <font>

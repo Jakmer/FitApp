@@ -7,10 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
-
 <?import javafx.scene.control.TextField?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitapp.GraphicalUserInterface.StartScreen">
+
+<Pane stylesheets="styles.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitapp.GraphicalUserInterface.StartScreen">
    <children>
       <ImageView fitHeight="447.0" fitWidth="505.0" layoutX="146.0" layoutY="14.0">
          <image>
@@ -35,7 +34,7 @@
          </font>
       </Button>
       <Label layoutX="317.0" layoutY="703.0" prefHeight="22.0" prefWidth="163.0" text="Don't have account yet?" textFill="#053448" />
-      <Button fx:id="signupButton" layoutX="355.0" layoutY="732.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="108.0" style="-fx-background-color: ff7d03;" styleClass="-fx-" text="SIGN UP" textFill="#053448">
+      <Button fx:id="signupButton" layoutX="355.0" layoutY="732.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="108.0" style="-fx-background-color: ff7d03;" styleClass="-fx-" text="SIGN UP" textFill="#053448" onAction="#handleSignUpButtonAction">
          <font>
             <Font name="DejaVu Sans Bold" size="13.0" />
          </font>

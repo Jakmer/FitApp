@@ -6,12 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class StartScreen extends Application {
 
-    public Label incorrectLabel;
+    @FXML
+    private Label SUincorrectLabel;
+    @FXML
+    private TextField SUusernameField;
+    @FXML
+    private TextField SUpasswordField;
+    @FXML
+    private TextField SUconfirmPasswordField;
+    @FXML
+    private TextField SUgoalField;
+    @FXML
+    private TextField SUweightField;
+    @FXML
+    private Label incorrectLabel;
     @FXML
     private javafx.scene.control.TextField usernameField;
     @FXML
@@ -79,6 +93,47 @@ public class StartScreen extends Application {
             usernameField.clear();
             passwordField.clear();
         }
+    }
+
+    @FXML
+    private void handleSignUpButtonAction() throws IOException {
+        Stage stage = (Stage) usernameField.getScene().getWindow();
+        stage.close();
+        Parent root = FXMLLoader.load(getClass().getResource("/SignUpScreen.fxml"));
+        Scene scene = new Scene(root, 817, 812);
+        Stage primaryStage = new Stage();
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("FitApp");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    @FXML
+    private void handleCreateAccountButtonAction() throws IOException {
+        /**
+         * database is responsible for provided data validation
+         */
+        if(SUusernameField.getText().isEmpty() || SUpasswordField.getText().isEmpty() || SUconfirmPasswordField.getText().isEmpty() || SUgoalField.getText().isEmpty() || SUweightField.getText().isEmpty())
+        {
+            SUusernameField.clear();
+            SUpasswordField.clear();
+            SUconfirmPasswordField.clear();
+            SUgoalField.clear();
+            SUweightField.clear();
+            SUincorrectLabel.setText("Please enter valid data");
+            SUincorrectLabel.setVisible(true);
+        }else {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
+            Scene scene = new Scene(root, 817, 812);
+            Stage primaryStage = new Stage();
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("FitApp");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
+
     }
 }
 
