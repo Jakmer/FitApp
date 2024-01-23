@@ -1,6 +1,6 @@
 package com.fitapp.DataBase;
 
-import com.fitapp.GraphicalUserInterface.StartScreen;
+import com.fitapp.GraphicalUserInterface.ScreenHandler;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -50,27 +50,39 @@ public class DbHandler {
 
     public void updateValues() throws SQLException {
         try {
-            String username = StartScreen.currentUser;
+            String username = ScreenHandler .currentUser;
             Statement statement = connection.createStatement();
 
             ResultSet goalResult = statement.executeQuery(String.format("SELECT goal from users where name = '%s';", username));
             goalResult.next();
-            StartScreen.goal = Integer.parseInt(goalResult.getString(1));
+            ScreenHandler.goal = Integer.parseInt(goalResult.getString(1));
 
-            System.out.println("Goal: " + StartScreen.goal);
+            System.out.println("Goal: " + ScreenHandler.goal);
 
-            ResultSet kcalResult = statement.executeQuery(String.format("select sum(kcal) from todayproducts join users on users.id = todayproducts.user_id where users.name = '%s';", username));
+            ResultSet kcalResult = statement.executeQuery(String.format("select  sum(kcal), sum(protein), sum(fat), sum(carbs) from todayproducts join users on users.id = todayproducts.user_id where users.name = '%s';", username));
             kcalResult.next();
-            if(kcalResult.getString(1) == null)
+
+            ScreenHandler.kcal = Integer.parseInt(kcalResult.getString(1));
+            ScreenHandler.protein = Integer.parseInt(kcalResult.getString(2));
+            ScreenHandler.fat = Integer.parseInt(kcalResult.getString(3));
+            ScreenHandler.carbs = Integer.parseInt(kcalResult.getString(4));
+
+            for(int i = 0; i < 4; i++)
             {
-                StartScreen.kcal = 0;
+                if(kcalResult.getString(i+1) == null)
+                {
+                    ScreenHandler.kcal = 0;
+                    ScreenHandler.protein = 0;
+                    ScreenHandler.fat = 0;
+                    ScreenHandler.carbs = 0;
+                }
             }
-            else
-                StartScreen.kcal = Integer.parseInt(kcalResult.getString(1));
 
+            System.out.println("Kcal: " + ScreenHandler.kcal);
+            System.out.println("Protein: " + ScreenHandler.protein);
+            System.out.println("Fat: " + ScreenHandler.fat);
+            System.out.println("Carbs: " + ScreenHandler.carbs);
 
-
-            System.out.println("Kcal: " + StartScreen.kcal);
         }
         catch (SQLException e)
         {

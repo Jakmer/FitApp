@@ -37,13 +37,24 @@ public class AddMealScreen extends Application {
     @FXML
     public ListView<String> productList;
     private final DbHandler dbHandler;
-    public AddMealScreen(MainScreen mainScreen) throws SQLException {
+    private MainScreen mainScreen;
+    public AddMealScreen() throws SQLException {
         this.dbHandler = new DbHandler();
+    }
+
+    public void setMainController(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
     }
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println("0");
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AddMealScreen.fxml")));
+        System.out.println("1");
+
         Scene scene = new Scene(root);
+        System.out.println("2");
+
         Stage additionalStage = new Stage();
         additionalStage.setResizable(false);
         additionalStage.setTitle("FitApp");
@@ -110,7 +121,10 @@ public class AddMealScreen extends Application {
              * TODO: here we need to update the table with products
              */
 
-
+            if(mainScreen != null)
+                mainScreen.update();
+            else
+                System.out.println("MainScreen is null");
 
             Stage stage = (Stage) this.productNameField.getScene().getWindow();
             stage.close();
