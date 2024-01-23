@@ -2,11 +2,13 @@ package com.fitapp.GraphicalUserInterface;
 
 import com.fitapp.DataBase.DbHandler;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import java.sql.SQLException;
@@ -15,6 +17,8 @@ import java.util.Objects;
 public class MainScreen extends Application {
     private DbHandler dbHandler;
 
+    @FXML
+    public ListView<String> DailyList;
     @FXML
     private Label KcalLabel;
     @FXML
@@ -39,7 +43,11 @@ public class MainScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainScreen.fxml")));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainScreen.fxml"));
+        Parent root = loader.load();
+
+        MainScreen controller = loader.getController();
+        controller.update();
 
         Scene scene = new Scene(root, 817, 812);
         Stage primaryStage = new Stage();
@@ -47,7 +55,6 @@ public class MainScreen extends Application {
         primaryStage.setTitle("FitApp");
         primaryStage.setScene(scene);
         primaryStage.show();
-        update();
     }
 
     @FXML

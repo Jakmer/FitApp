@@ -41,7 +41,7 @@ public class LoginScreen extends Application {
     }
 
     @FXML
-    private void handleLoginButtonAction() throws IOException, SQLException {
+    private void handleLoginButtonAction() throws Exception {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -76,13 +76,9 @@ public class LoginScreen extends Application {
 
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 stage.close();
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/MainScreen.fxml")));
-                Scene scene = new Scene(root, 817, 812);
-                Stage primaryStage = new Stage();
-                primaryStage.setResizable(false);
-                primaryStage.setTitle("FitApp");
-                primaryStage.setScene(scene);
-                primaryStage.show();
+
+                MainScreen mainScreen = new MainScreen();
+                mainScreen.start(new Stage());
             }
         }
     }

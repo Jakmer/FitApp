@@ -98,6 +98,7 @@ public class SignUpScreen extends Application {
 
                     MainScreen mainScreen = new MainScreen();
                     mainScreen.start(new Stage());
+                    mainScreen.update();
                 }
             }
 
