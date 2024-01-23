@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitapp.GraphicalUserInterface.StartScreen">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7700" height="83.0" layoutX="-37.0" stroke="#ff7700" strokeType="INSIDE" width="783.0" />
+      <Label alignment="CENTER" layoutX="33.0" layoutY="12.0" prefHeight="60.0" prefWidth="162.0" text="Add meal" textFill="#033045">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="95.0" prefHeight="16.0" prefWidth="162.0" text="Product name" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="productNameField" layoutX="59.0" layoutY="117.0" />
+      <TextField fx:id="proteinField" layoutX="59.0" layoutY="176.0" />
+      <TextField fx:id="fatField" layoutX="59.0" layoutY="231.0" />
+      <TextField fx:id="carbsField" layoutX="59.0" layoutY="291.0" />
+      <TextField fx:id="searchProductField" layoutX="369.0" layoutY="117.0" prefHeight="24.0" prefWidth="296.0" promptText="Enter product name " />
+      <ListView fx:id="productList" layoutX="369.0" layoutY="155.0" prefHeight="164.0" prefWidth="296.0" />
+      <Label layoutX="59.0" layoutY="155.0" prefHeight="16.0" prefWidth="162.0" text="Protein" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="211.0" prefHeight="16.0" prefWidth="162.0" text="Fat" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="271.0" prefHeight="16.0" prefWidth="162.0" text="Carbs" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="331.0" prefHeight="16.0" prefWidth="162.0" text="Kcal" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="kcalField" layoutX="59.0" layoutY="351.0" />
+      <Label layoutX="369.0" layoutY="95.0" prefHeight="16.0" prefWidth="162.0" text="Search products" textFill="#033045">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="searchProductButton" layoutX="404.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleSearchButtonAction" prefHeight="40.0" prefWidth="227.0" style="-fx-background-color: #033045;" text="Search" textFill="#eeeeee">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="addProductButton" layoutX="199.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleAddProductButtonAction" prefHeight="46.0" prefWidth="311.0" style="-fx-background-color: #033045;" text="Add meal" textFill="#eeeeee">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="AddMealError" layoutX="59.0" layoutY="386.0" prefHeight="20.0" prefWidth="170.0" text="Enter valid values!" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

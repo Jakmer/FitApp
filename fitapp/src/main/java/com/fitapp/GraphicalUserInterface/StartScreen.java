@@ -1,20 +1,46 @@
 package com.fitapp.GraphicalUserInterface;
 
 import com.fitapp.DataBase.DbHandler;
+import com.sun.javafx.charts.Legend;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import sun.text.resources.ext.JavaTimeSupplementary_sq;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 public class StartScreen extends Application {
+
+    public static String currentUser;
+    private FXMLLoader mainScreenLoader;
+    public static int goal;
+    public static int kcal;
+    @FXML
+    public ListView productList;
+    @FXML
+    public Label KcalLabel;
+    @FXML
+    public Label ProteinLabel;
+    @FXML
+    public Label FatLabel;
+    @FXML
+    public Label CarbsLabel;
+    @FXML
+    public Label GoalLabel;
+    @FXML
+    public ProgressBar goalProgressBar;
+    @FXML
+    public Label totalGoalLabel;
+    @FXML
+    public Label goalProgress;
 
     @FXML
     private Label SUincorrectLabel;
@@ -34,11 +60,28 @@ public class StartScreen extends Application {
     private javafx.scene.control.TextField usernameField;
     @FXML
     private javafx.scene.control.TextField passwordField;
+    @FXML
+    private TextField searchProductField;
+    @FXML
+    private TextField productNameField;
+    @FXML
+    private TextField proteinField;
+    @FXML
+    private TextField fatField;
+    @FXML
+    private TextField carbsField;
+    @FXML
+    private TextField kcalField;
+    @FXML
+    private Label AddMealError;
+
     private DbHandler dbHandler;
 
     public StartScreen() throws SQLException {
         this.dbHandler = new DbHandler();
     }
+
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -107,6 +150,9 @@ public class StartScreen extends Application {
             }
             else
             {
+                this.currentUser = username;
+                System.out.println(currentUser+" logged in");
+
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
@@ -121,7 +167,7 @@ public class StartScreen extends Application {
     }
 
     @FXML
-    private void handleSignUpButtonAction() throws IOException {
+    private void handleSignUpButtonAction() throws IOException, SQLException {
         Stage stage = (Stage) usernameField.getScene().getWindow();
         stage.close();
         Parent root = FXMLLoader.load(getClass().getResource("/SignUpScreen.fxml"));
@@ -131,6 +177,7 @@ public class StartScreen extends Application {
         primaryStage.setTitle("FitApp");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     @FXML
@@ -184,6 +231,7 @@ public class StartScreen extends Application {
                     Stage stage = (Stage) SUusernameField.getScene().getWindow();
                     stage.close();
                     Parent root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
+
                     Scene scene = new Scene(root, 817, 812);
                     Stage primaryStage = new Stage();
                     primaryStage.setResizable(false);
@@ -195,6 +243,109 @@ public class StartScreen extends Application {
 
         }
 
+    }
+
+    @FXML
+    private void handleAddMealButtonAction() throws IOException, SQLException {
+        Parent root = FXMLLoader.load(getClass().getResource("/AddMealScreen.fxml"));
+        Scene scene = new Scene(root);
+        Stage additionalStage = new Stage();
+        additionalStage.setResizable(false);
+        additionalStage.setTitle("FitApp");
+        additionalStage.setScene(scene);
+        additionalStage.show();
+    }
+
+    @FXML
+    private void handleAddProductButtonAction() throws IOException, SQLException {
+
+        String productName = productNameField.getText();
+        String protein = proteinField.getText();
+        String fat = fatField.getText();
+        String carbs = carbsField.getText();
+        String kcal = kcalField.getText();
+
+        String result = "";
+
+        if(productList.getSelectionModel().getSelectedItem() != null)
+        {
+            String product = productList.getSelectionModel().getSelectedItem().toString();
+            String[] productData = product.split(" ");
+            for (String productDatum : productData) {
+                System.out.println(productDatum);
+            }
+            result = dbHandler.handleAddProduct(currentUser, productData[0], productData[1], productData[2], productData[3], productData[4]);
+        }
+        else if(productName.isEmpty() || protein.isEmpty() || fat.isEmpty() || carbs.isEmpty() || kcal.isEmpty())
+        {
+            productNameField.clear();
+            proteinField.clear();
+            fatField.clear();
+            carbsField.clear();
+            kcalField.clear();
+            AddMealError.setVisible(true);
+        }
+        else {
+            System.out.println(this.currentUser);
+            result = dbHandler.handleAddProduct(currentUser, productName, protein, fat, carbs, kcal);
+        }
+        if(result.equals("Error"))
+            {
+                AddMealError.setText("Failed to add product");
+                AddMealError.setVisible(true);
+            }
+            else
+            {
+                /**
+                 * TODO: here we need to update the table with products
+                 */
+                Stage stage = (Stage) this.productNameField.getScene().getWindow();
+                stage.close();
+
+            }
+
+    }
+
+    @FXML
+    private void handleSearchButtonAction() throws IOException, SQLException {
+        String searchedProduct = searchProductField.getText();
+
+        if(!searchedProduct.isEmpty())
+        {
+            ArrayList<String> items = dbHandler.handleSearchProduct(searchedProduct);
+            // Convert ArrayList to ObservableList
+            ObservableList<String> observableList = FXCollections.observableArrayList(items);
+
+            // Set items to ListView
+            productList.setItems(observableList);
+        }
+    }
+
+   @FXML
+    private void updateMainScreen(int kcal, int protein, int fat, int carbs)
+    {
+        KcalLabel.setText(String.valueOf(kcal));
+        ProteinLabel.setText(String.valueOf(protein));
+        FatLabel.setText(String.valueOf(fat));
+        CarbsLabel.setText(String.valueOf(carbs));
+        totalGoalLabel.setText(goal +"kcal");
+
+    }
+
+    @FXML
+    public void updateMainScreen() throws SQLException {
+
+        dbHandler.updateValues();
+
+        goalProgressBar.setProgress((double)kcal/goal);
+
+        goalProgress.setText(String.valueOf((kcal)));
+        KcalLabel.setText(String.valueOf(kcal));
+        totalGoalLabel.setText(goal +"kcal");
+
+        System.out.println(KcalLabel.getText());
+        System.out.println(totalGoalLabel.getText());
+        System.out.println(goalProgress.getText());
     }
 
 }
