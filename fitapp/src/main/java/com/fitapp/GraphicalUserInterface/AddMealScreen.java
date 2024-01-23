@@ -91,7 +91,7 @@ public class AddMealScreen extends Application {
         if(productList.getSelectionModel().getSelectedItem() != null)
         {
             String product = productList.getSelectionModel().getSelectedItem().toString();
-            String[] productData = product.split(" ");
+            String[] productData = product.split("  ");
             for (String productDatum : productData) {
                 System.out.println(productDatum);
             }

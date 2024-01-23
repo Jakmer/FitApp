@@ -9,7 +9,9 @@ public class ScreenHandler {
     public static int protein;
     public static int fat;
     public static int carbs;
+    public static int currentDay;
 
+    public static double waterProgress;
     public void startScreen(){
         Application.launch(LoginScreen.class);
 
