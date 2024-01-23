@@ -43,18 +43,18 @@ public class AddMealScreen extends Application {
     }
 
     public void setMainController(MainScreen mainScreen) {
+        System.out.println(mainScreen);
         this.mainScreen = mainScreen;
     }
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("0");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMealScreen.fxml"));
+        Parent root = loader.load();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AddMealScreen.fxml")));
-        System.out.println("1");
+        AddMealScreen controller = loader.getController();
+        controller.setMainController(mainScreen);
 
         Scene scene = new Scene(root);
-        System.out.println("2");
-
         Stage additionalStage = new Stage();
         additionalStage.setResizable(false);
         additionalStage.setTitle("FitApp");
@@ -121,6 +121,7 @@ public class AddMealScreen extends Application {
              * TODO: here we need to update the table with products
              */
 
+            System.out.println(mainScreen);
             if(mainScreen != null)
                 mainScreen.update();
             else
