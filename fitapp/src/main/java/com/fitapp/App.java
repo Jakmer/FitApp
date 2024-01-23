@@ -1,16 +1,14 @@
 package com.fitapp;
 
-import com.fitapp.DataBase.DatabaseConnector;
-import com.fitapp.DataBase.DbHandler;
-import com.fitapp.GraphicalUserInterface.StartScreen;
-import javafx.application.Application;
+import com.fitapp.GraphicalUserInterface.ScreenHandler;
 import java.sql.SQLException;
 
 public class App {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         try {
-            Application.launch(StartScreen.class, args);
+            ScreenHandler screenHandler = new ScreenHandler();
+            screenHandler.startScreen();
         }catch (Exception e){
             e.printStackTrace();
         }

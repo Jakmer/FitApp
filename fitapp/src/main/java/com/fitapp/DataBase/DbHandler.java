@@ -1,16 +1,14 @@
 package com.fitapp.DataBase;
 
 import com.fitapp.GraphicalUserInterface.StartScreen;
-
 import java.sql.*;
 import java.util.ArrayList;
 
 public class DbHandler {
-    private String configFile;
-    private DatabaseConnector databaseConnector;
-    private Connection connection;
+    private final DatabaseConnector databaseConnector;
+    private final Connection connection;
     public DbHandler() throws SQLException {
-        this.configFile = "login/logs.txt";  // Path to config file
+        String configFile = "login/logs.txt";  // Path to config file
         this.databaseConnector = new DatabaseConnector(configFile);
         this.connection = databaseConnector.connect();
     }

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 
 <?import javafx.scene.control.PasswordField?>
-<Pane stylesheets="styles.css" fx:controller="com.fitapp.GraphicalUserInterface.StartScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane stylesheets="styles.css" fx:controller="com.fitapp.GraphicalUserInterface.SignUpScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="812.0" prefWidth="817.0" style="-fx-background-color: effafe;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="SUusernameField" layoutX="267.0" layoutY="345.0" prefHeight="22.0" prefWidth="284.0" promptText="Enter your username" />
       <PasswordField fx:id="SUpasswordField" layoutX="267.0" layoutY="413.0" prefHeight="24.0" prefWidth="284.0" promptText="Enter your password" />
