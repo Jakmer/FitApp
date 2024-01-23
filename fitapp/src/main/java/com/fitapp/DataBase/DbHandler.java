@@ -153,6 +153,39 @@ public class DbHandler {
         return items;
     }
 
+    public ArrayList<String> handleDailyProducts() throws SQLException {
+
+        String name = "", protein = "", fat = "", carbs = "", kcal = "";
+        ArrayList<String> items = new ArrayList<>();
+        try
+        {
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery(String.format("select todayproducts.name, protein, fat, carbs, kcal from todayproducts join users on users.id = todayproducts.user_id where users.name = '%s';", ScreenHandler.currentUser));
+
+        while(result.next()) {
+             name = result.getString("name");
+             protein = result.getString("protein");
+             fat = result.getString("fat");
+             carbs = result.getString("carbs");
+             kcal = result.getString("kcal");
+             String item = name + " "+ protein + " " + fat + " " + carbs + " " + kcal;
+             items.add(item);
+
+        }}
+        catch (SQLException e)
+        {
+            System.out.println(e.getSQLState());
+            items.clear();
+            items.add("Problems encountered while searching for product");
+            return items;
+        }
+        if(items.isEmpty())
+        {
+            items.add("No products today");
+        }
+        return items;
+    }
+
     public void closeConnection() {
         databaseConnector.closeConnection(this.connection);
     }

@@ -115,7 +115,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <ListView fx:id="DailyList" editable="true" fixedCellSize="10.0" layoutX="390.0" layoutY="602.0" prefHeight="166.0" prefWidth="401.0" />
+      <ListView fx:id="DailyList" editable="true" layoutX="390.0" layoutY="602.0" prefHeight="166.0" prefWidth="401.0" />
       <Label alignment="CENTER" layoutX="390.0" layoutY="544.0" prefHeight="45.0" prefWidth="401.0" style="-fx-background-color: #053448#053448; -fx-background-radius: 20;" text="Daily list" textFill="#edeeee">
          <font>
             <Font name="System Bold" size="30.0" />

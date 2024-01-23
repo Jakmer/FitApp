@@ -2,7 +2,8 @@ package com.fitapp.GraphicalUserInterface;
 
 import com.fitapp.DataBase.DbHandler;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,10 +13,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import java.sql.SQLException;
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class MainScreen extends Application {
-    private DbHandler dbHandler;
+    private final DbHandler dbHandler;
 
     @FXML
     public ListView<String> DailyList;
@@ -84,6 +85,10 @@ public class MainScreen extends Application {
             goalProgressBar.setProgress((double) ScreenHandler.kcal / ScreenHandler.goal);
             totalGoalLabel.setText(String.valueOf(ScreenHandler.goal));
             goalProgress.setText(String.valueOf(ScreenHandler.kcal));
+
+            ArrayList<String> todayProducts = dbHandler.handleDailyProducts();
+            ObservableList<String> observableList = FXCollections.observableArrayList(todayProducts);
+            DailyList.setItems(observableList);
 
         } catch (SQLException e) {
             e.printStackTrace();
