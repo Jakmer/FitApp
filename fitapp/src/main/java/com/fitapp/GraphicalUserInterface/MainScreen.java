@@ -10,10 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateStringConverter;
-
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MainScreen extends Application {
@@ -51,6 +48,8 @@ public class MainScreen extends Application {
     private javafx.scene.control.Button addWaterButton;
     @FXML
     private javafx.scene.control.Button addActivityButton;
+    @FXML
+    private javafx.scene.control.Button adminButton;
 
 
     public MainScreen() throws SQLException {
@@ -64,6 +63,7 @@ public class MainScreen extends Application {
 
         MainScreen controller = loader.getController();
         controller.update();
+        controller.handleAdmin();
 
         Scene scene = new Scene(root, 817, 812);
         Stage primaryStage = new Stage();
@@ -212,4 +212,28 @@ public class MainScreen extends Application {
 
     }
 
+    @FXML
+    public void handleAdminButtonAction()
+    {
+        // here we may add new facities for admin but for now its clear history
+        try {
+            dbHandler.clearHistory();
+            update();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleAdmin()
+    {
+        if(ScreenHandler.currentUser.equals("Admin"))
+        {
+            adminButton.setVisible(true);
+        }
+        else
+        {
+            adminButton.setVisible(false);
+        }
+    }
 }

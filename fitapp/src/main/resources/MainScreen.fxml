@@ -137,6 +137,7 @@
             <Font name="System Italic" size="10.0" />
          </font>
       </Label>
+      <Button fx:id="adminButton" onAction="#handleAdminButtonAction" layoutX="6.0" layoutY="786.0" mnemonicParsing="false" text="Clear" />
       <Button onAction="#handleSettingsButtonAction" ellipsisString="" layoutX="747.0" layoutY="14.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="44.0" />
       <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="752.0" layoutY="20.0">
          <image>

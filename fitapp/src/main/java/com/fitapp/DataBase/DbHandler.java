@@ -316,6 +316,21 @@ public class DbHandler {
         return false;
     }
 
+    public void clearHistory() throws SQLException {
+        try
+        {
+        Statement statement = connection.createStatement();
+        System.out.println("Clearing history");
+
+        //ResultSet result = statement.executeQuery(String.format("call clear_history('%s');", ScreenHandler.currentUser));
+        //result.next();
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getSQLState());
+        }
+    }
+
     public void closeConnection() {
         databaseConnector.closeConnection(this.connection);
     }
