@@ -88,7 +88,7 @@ public class DbHandler {
         }
         catch (SQLException e)
         {
-            System.out.println(e.getSQLState());
+            //System.out.println(e.getSQLState());
         }
     }
 
